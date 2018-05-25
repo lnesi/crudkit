@@ -8,8 +8,11 @@ class TextFormItem extends HorizontalItem{
     {
     	$directives = $this->getAngularDirectives ();
         $value = isset($this->config['value']) ? $this->config['value'] : "";
+       
+        $disabled=$this->config['disabled']?'disabled':'';
+
         return <<<COMP
-        <input type="text" class="form-control" id="{$this->id}" placeholder="" $directives />
+        <input type="text" class="form-control" {$disabled}  id="{$this->id}" placeholder="" $directives />
 COMP;
     }
 }

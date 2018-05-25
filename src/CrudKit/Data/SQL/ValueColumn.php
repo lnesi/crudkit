@@ -24,17 +24,20 @@ class ValueColumn extends SQLColumn {
         switch($this->typeName) {
             case "string":
                 $item = new TextFormItem($form, $this->id, array(
-                    'label' => $this->options['label']
+                    'label' => $this->options['label'],
+                    'disabled'=>$this->options['readonly']?true:false
                 ));
                 break;
             case "datetime":
                 $item = new DateTimeFormItem($form, $this->id, array(
-                    'label' => $this->options['label']
+                    'label' => $this->options['label'],
+                    'disabled'=>$this->options['readonly']?true:false
                 ));
                 break;
             case "number":
                 $item = new NumberFormItem($form, $this->id, array(
-                    'label' => $this->options['label']
+                    'label' => $this->options['label'],
+                    'disabled'=>$this->options['readonly']?true:false
                 ));
                 break;
         }

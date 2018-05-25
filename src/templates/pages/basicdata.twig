@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block actionButtons %}
-{% if writable %}
+{% if addEnabled %}
 <a href="{{ route.newItem(page.getId())|raw }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add New</a>
 {% endif %}
 {% endblock %}

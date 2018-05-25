@@ -69,6 +69,7 @@ class ArrayDataProvider extends BaseDataProvider
     private function addFormItemFromSchema(FormHelper $form, $columnId, array $columnOptions)
     {
         $type = empty($columnOptions['type']) ? 'string' : $columnOptions['type'];
+       
         $config = [
             'label' => $columnOptions['label']
         ];

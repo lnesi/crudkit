@@ -20,12 +20,14 @@ class BasicDataPage extends BasePage{
     {
         $twig = new TwigUtil();
         $writableFlag = !$this->app->isReadOnly ();
+        if($writableFlag) $writableFlag=!$this->readOnly;
         ValueBag::set ("writable", $writableFlag);
         ValueBag::set ("rowsPerPage", $this->rowsPerPage);
         return $twig->renderTemplateToString("pages/basicdata.twig", array(
             'route' => new RouteGenerator(),
             'page' => $this,
             'writable' => $writableFlag,
+            'addEnabled' => $this->addEnabled,
             'name' => $this->name
         ));
     }
@@ -100,8 +102,10 @@ class BasicDataPage extends BasePage{
         $route = new RouteGenerator();
         $deleteUrl = ($route->itemFunc($this->getId(), $rowId, "delete_item"));
         $editUrl = ($route->itemFunc($this->getId(), $rowId, "edit_item"));
+        
         $writable = !$this->app->isReadOnly ();
 
+        if($writable) $writable=!$this->readOnly;
         $summaryKey = $this->dataProvider->getSummaryColumns()[0]['key'];
         $rowData = $this->dataProvider->getRow ($rowId);
         $rowName = $rowData[$summaryKey];
@@ -314,8 +318,33 @@ class BasicDataPage extends BasePage{
             //throw new \Exception("Cannot validate values");
         }
     }
-
+    
+    
     // TODO: start organizing parameters 
+    protected $addEnabled=true;
+    public function setAddEnabled($value=true){
+        $this->addEnabled=$value;
+        return $this;
+    }
+
+    protected $deleteEnabled=true;
+    public function setDeleteEnabled($value=true){
+        $this->deleteEnabled=$value;
+        return $this;
+    }
+
+    protected $editEnabled=true;
+    public function setEditEnabled($value=true){
+        $this->editEnabled=$value;
+        return $this;
+    }
+
+    protected $readOnly=false;
+    public function setReadOnly($value=true){
+        $this->readOnly=$value;
+        return $this;
+    }
+
     protected $rowsPerPage = 10;
     public function setRowsPerPage ($rows = 10) {
         $this->rowsPerPage = $rows;
